@@ -19,6 +19,8 @@ class CreateTableCustomerTransactionDetail extends Migration
             $table->integer('product_id')->unsigned();
             $table->integer('product_qty');
             $table->string('product_package');
+            $table->string('product_color_base');
+            
             $table->timestamps();
 
             $table->foreign('product_id')->references('product_id')->on('products');
