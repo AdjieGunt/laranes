@@ -15,4 +15,5 @@
 //     return view('admin_template');
 // });
 
-Route::get('test', 'TestController@index');
+Route::get('sell_in', 'TestController@index');
+Route::get('sell_in_list', 'TestController@sell_list');

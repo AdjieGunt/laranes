@@ -2,52 +2,88 @@
 
 @section('content')
     <div class='row'>
-        <div class='col-md-6'>
+        <div class='col-md-12'>
             <!-- Box -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Randomly Generated Tasks</h3>
-                    <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                        <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-                    </div>
+                    <h3 class="box-title">Sell In </h3>
                 </div>
                 <div class="box-body">
-                    @foreach($tasks as $task)
-                        <h5>
-                            {{ $task['name'] }}
-                            <small class="label label-{{$task['color']}} pull-right">{{$task['progress']}}%</small>
-                        </h5>
-                        <div class="progress progress-xxs">
-                            <div class="progress-bar progress-bar-{{$task['color']}}" style="width: {{$task['progress']}}%"></div>
+                <form role="form">
+                  <!-- text input -->
+                  <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" class="form-control" placeholder="Enter ..." disabled>
+                  </div>
+                  <div class="row" id="product_field">
+                      
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Choose Product</label>
+                            <select class="form-control">
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                                <option>option 5</option>
+                            </select>
                         </div>
-                    @endforeach
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Product Packages</label>
+                            <select class="form-control">
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                                <option>option 5</option>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="form-group">
+                             <label>Color Base</label>
+                             <select class="form-control">
+                                 <option>A</option>
+                                 <option>B</option>
+                                 <option>C</option>
+                                 <option>D</option>
+                                 <option>E</option>
+                             </select>
+                          </div>
+                      </div>
+                      <div class="col-md-2">
+                          <div class="form-group">
+                             <label>Quantity</label>
+                             <input type="number" class="form-control" placeholder="Enter ..." >
+                           </div>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="form-group">
+                            <label>Add</label>
+                            <div class="btn btn-success" > <i class="fa fa-plus"> </i> </div>
+                        </div>
+                      </div>
 
-                </div><!-- /.box-body -->
-                <div class="box-footer">
-                    <form action='#'>
-                        <input type='text' placeholder='New task' class='form-control input-sm' />
-                    </form>
-                </div><!-- /.box-footer-->
+                  </div>
+                 
+
+                  <!-- textarea -->
+                  <div class="form-group">
+                    <label>Sell In Note</label>
+                    <textarea class="form-control" rows="3" placeholder="Enter a note ..."></textarea>
+                  </div>
+   
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                   </div>
+                 
+  
+                </form>
+              </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div><!-- /.col -->
-        <div class='col-md-6'>
-            <!-- Box -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Second Box</h3>
-                    <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                        <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    A separate section to add any kind of widget. Feel free
-                    to explore all of AdminLTE widgets by visiting the demo page
-                    on <a href="https://almsaeedstudio.com">Almsaeed Studio</a>.
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div><!-- /.col -->
-
+    
     </div><!-- /.row -->
 @endsection

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class TestController extends Controller
 {
     public function index() {
+        $data['title'] = 'Sell In Product';
         $data['tasks'] = [
             [
                     'name' => 'Design New Dashboard',
@@ -38,5 +39,11 @@ class TestController extends Controller
             ]
         ];
         return view('test')->with($data);
+    }
+
+    public function sell_list() {
+            $data['title'] = 'Sell In List';
+
+            return view('sell_list')->with($data);
     }
 }
