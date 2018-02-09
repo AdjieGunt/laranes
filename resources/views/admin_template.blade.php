@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Starter</title>
+  <title>{{ $title }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{{ asset("bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
@@ -197,6 +197,13 @@ desired effect
       'info'        : true,
       'autoWidth'   : false
     })
+
+    $('#add_product_field').on('click', function(){
+        // console.log('klik tambah product');
+        var product_field = $(this).closest('.row.product_field').clone(true);
+        $(this).closest('.row.product_field').after(product_field);
+    })
+
   })
 </script>
 

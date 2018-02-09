@@ -19,13 +19,12 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Sell In ID</th>
-                  <th>Sell In Input Date</th>
-                  <th>Total Product</th>
-                  <th>Total Qty</th>
-                  <th>Created By</th>                  
-                  <!-- <th>A</th>
-                  <th>Color Base</th> -->
+                  <th>ID</th>
+                  <th>Sell In Create Date</th>
+                  <th>Product Name</th>
+                  <th>Product Packages</th>                  
+                  <th>Product Qty</th>
+                  <th>Color Base</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -50,12 +49,13 @@
                     </tr> -->
                 @foreach($sell_in as $data)
                     <tr>
-                        <td>{{ $data['sell_id'] }}</td>
-                        <td>{{ $data['sell_created_date'] }}</td>                        
-                        <td>{{ $data['total_product'] }}</td>
-                        <td>{{ $data['total_qty'] }}</td>
-                        <td>{{ $data['username'] }}</td>
-                        <td><a class="btn btn-info btn-sm"  href="{{ action('TestController@sell_list_detail', $data['sell_id']) }}">Detail</a></td>
+                        <td>{{ $data['sell_products_detail_id'] }}</td>
+                        <td>{{ $data['sell_products_detail_created_date'] }}</td>
+                        <td>{{ $data['product_name'] }}</td>
+                        <td>{{ $data['sell_products_detail_product_packages'] }}</td>
+                        <td>{{ $data['sell_products_detail_product_qty'] }}</td>
+                        <td>{{ $data['sell_products_detail_product_base'] }}</td>
+                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
                     </tr>
                 @endforeach
                 </tbody>

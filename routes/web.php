@@ -17,3 +17,7 @@
 
 Route::get('sell_in', 'TestController@index');
 Route::get('sell_in_list', 'TestController@sell_list');
+Route::get('sell_in_list/{id}/detail', 'TestController@sell_list_detail');
+
+Route::post('sell_in_save', 'TestController@store');
+
