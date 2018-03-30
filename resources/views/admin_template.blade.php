@@ -193,7 +193,7 @@ desired effect
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
-      'ordering'    : true,
+      'ordering'    : false,
       'info'        : true,
       'autoWidth'   : false
     })
@@ -201,10 +201,105 @@ desired effect
     $('#add_product_field').on('click', function(){
         // console.log('klik tambah product');
         var product_field = $(this).closest('.row.product_field').clone(true);
+        console.log($(this));
         $(this).closest('.row.product_field').after(product_field);
     })
 
   })
+</script>
+
+<script>
+
+// A $( document ).ready() block.
+$( document ).ready(function() {
+    console.log( "ready!" );
+    
+    var product_id = null;
+    var product_pkg = null;
+    var current_stock = 0;
+
+    $('#sell_out_prod_id').change(function() {
+      console.log($(this).val());
+
+      product_id = $(this).val();
+  
+      $.ajax({
+        url: "/check_stock?product_id="+product_id,
+        type: "GET",
+        success: function(data) {
+          console.log(data);
+          //sell_out_prod_pkg
+          $('#sell_out_prod_pkg').removeAttr('disabled');
+        
+          var option_pkg = '<option val="">Choose Package ..</option>';
+          var option_color_base = '<option val="">Choose Color ..</option>';
+          var color_opt = "";
+          for(var i=0; i < data.length; i++) {
+            console.log(data[i]);
+            option_pkg += '<option val="'+data[i].stock_product_package+'">' +data[i].stock_product_package+'</option>';
+      
+          }
+          
+          $('#sell_out_prod_pkg').html("");
+          $('#sell_out_prod_pkg').append(option_pkg);
+
+        }
+      });
+    });
+
+    $('#sell_out_prod_pkg').change(function(){
+      product_pkg = $(this).val();
+      console.log(product_pkg);
+      $.ajax({
+        url: "/check_stock?product_id="+product_id+"&product_pkg="+product_pkg,
+        type: "GET",
+        success: function(data) {
+          console.log(data);
+          //sell_out_prod_pkg
+    
+          $('#sell_out_color_base').removeAttr('disabled');
+          
+          var option_color_base = '<option val="">Choose Color ..</option>';
+          var color_opt = "";
+          for(var i=0; i < data.length; i++) {
+            console.log(data[i]);
+      
+            if(color_opt !== data[i].stock_product_color_base) {
+              option_color_base += '<option val="'+data[i].stock_product_color_base+'">' + data[i].stock_product_color_base +'</option>';                
+            }              
+            color_opt = data[i].stock_product_color_base;
+          }
+
+          $('#sell_out_color_base').html("");
+          $('#sell_out_color_base').append(option_color_base);
+        }
+      })
+    })
+
+    $('#sell_out_color_base').change(function(){
+      product_color_base = $(this).val();
+      console.log(product_color_base);
+      $.ajax({
+        url: "/check_stock?product_id="+product_id+"&product_pkg="+product_pkg+"&product_color_base="+product_color_base,
+        type: "GET",
+        success: function(data) {
+          console.log(data);
+          $('#sell_out_qty').removeAttr("disabled");
+          $('.info_stock').html("Current Stock : "+ data[0].stock_product_qty);
+          current_stock = data[0].stock_product_qty;
+        }
+      })
+    })
+
+    $('#sell_out_qty').change(function(){
+      if($(this).val() > current_stock) {
+        console.log("Gak boleh lebih dari " + current_stock);
+        $(this).val(current_stock);
+      }
+    })
+});
+
+
 </script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.

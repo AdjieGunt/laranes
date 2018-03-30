@@ -32,8 +32,10 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Main Menu</li>
         <!-- Optionally, you can add icons to the links -->
-        <!-- <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li> -->
-        <!-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li> -->
+        <li ><a href="#"><i class="fa fa-link"></i> <span>Customer</span></a></li>
+        <li ><a href="#"><i class="fa fa-link"></i> <span>Product Master</span></a></li>
+        
+        
         
         <li class="treeview menu-open">
           <a href="#"><i class="fa fa-cart-plus"></i> <span>Sell In</span>
@@ -42,11 +44,26 @@
               </span>
           </a>
           <ul class="treeview-menu" style="display: block;">
-            <li {{{ Request::is('sell_in') ? 'class=active' : '' }}} ><a href="/sell_in"><i class="fa fa-save"></i><span>Sell In</span></a></li>
-            <li {{{ Request::is('sell_in_list') ? 'class=active' : '' }}} ><a href="/sell_in_list"><i class="fa fa-list"></i><span>Sell In List</span></a></li>
+            <li {{{ Request::is('sell_in') ? 'class=active' : '' }}} ><a href="{{ url("/sell_in") }}"><i class="fa fa-save"></i><span>Sell In</span></a></li>
+            <li {{{ Request::is('sell_in_list') ? 'class=active' : '' }}} ><a href="{{ url("/sell_in_list") }}"><i class="fa fa-list"></i><span>Sell In List</span></a></li>
             <!-- <li><a href="/sell_in_list"><i class="fa fa-list"></i><span>Sell In List Detail</span></a></li>             -->
           </ul>
         </li>
+
+        <li class="treeview menu-open">
+          <a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Sell Out</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu" style="display: block;">
+            <li {{{ Request::is('sell_out') ? 'class=active' : '' }}} ><a href="{{ url("/sell_out") }}"><i class="fa fa-external-link"></i><span>Sell Out</span></a></li>
+            <li {{{ Request::is('sell_out_list') ? 'class=active' : '' }}} ><a href="{{ url("/sell_out_list") }}"><i class="fa fa-list"></i><span>Sell Out List</span></a></li>
+            <!-- <li><a href="/sell_in_list"><i class="fa fa-list"></i><span>Sell In List Detail</span></a></li>             -->
+          </ul>
+        </li>
+
+        <li {{{ Request::is('stock') ? 'class=active' : '' }}}><a href="{{ url("/stock") }}"><i class="fa fa-database"></i> <span>Info Stock</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

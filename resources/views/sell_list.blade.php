@@ -4,9 +4,9 @@
     <div class='row'>
         <div class='col-md-12'>
             <!-- Box -->
-            <div class="box box-primary">
+            <div class="box {{ $sell_flag == 'In' ? 'box-primary' : 'box-danger'}}">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Sell In </h3>
+                    <h3 class="box-title">Sell {{ $sell_flag }} </h3>
                 </div>
                 <div class="box-body">
                 @if(\Session::has('success'))
@@ -19,8 +19,8 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Sell In ID</th>
-                  <th>Sell In Input Date</th>
+                  <th>Sell {{ $sell_flag }} ID</th>
+                  <th>Sell {{ $sell_flag }} Input Date</th>
                   <th>Total Product</th>
                   <th>Total Qty</th>
                   <th>Created By</th>                  
@@ -55,7 +55,14 @@
                         <td>{{ $data['total_product'] }}</td>
                         <td>{{ $data['total_qty'] }}</td>
                         <td>{{ $data['username'] }}</td>
-                        <td><a class="btn btn-info btn-sm"  href="{{ action('TestController@sell_list_detail', $data['sell_id']) }}">Detail</a></td>
+                        <td>
+                        @if (\Request::is('sell_in_list'))
+                        <a class="btn btn-primary btn-sm"  
+                                href="{{ url('sell_in_list/'. $data['sell_id'] .'/detail') }}">Detail</a></td>
+                        @else
+                        <a class="btn btn-danger btn-sm"  
+                                href="{{ url('sell_out_list/'. $data['sell_id'] .'/detail') }}">Detail</a></td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

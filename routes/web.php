@@ -15,9 +15,17 @@
 //     return view('admin_template');
 // });
 
-Route::get('sell_in', 'TestController@index');
-Route::get('sell_in_list', 'TestController@sell_list');
-Route::get('sell_in_list/{id}/detail', 'TestController@sell_list_detail');
+Route::get('sell_in', 'SellController@index');
+Route::get('sell_in_list', 'SellController@sell_list');
+Route::get('sell_out_list', 'SellController@sell_list');
 
-Route::post('sell_in_save', 'TestController@store');
+Route::get('sell_in_list/{id}/detail', 'SellController@sell_list_detail');
+Route::get('sell_out_list/{id}/detail', 'SellController@sell_list_detail');
 
+Route::post('sell_save', 'SellController@store');
+
+Route::get('sell_out', 'SellController@sell_out_form');
+
+
+Route::get('stock', 'StockController@stock_list');
+Route::get('check_stock', 'StockController@check_stock_for_sell_out');

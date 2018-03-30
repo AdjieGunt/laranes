@@ -6,7 +6,12 @@
             <!-- Box -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Sell In </h3>
+                    <h3 class="box-title">
+                        <small class="label bg-green"> 
+                            <i class="fa fa-calendar-check-o"></i> {{ $sell_in_data->sell_created_date }}
+                        </small>
+                        
+                    </h3>
                 </div>
                 <div class="box-body">
                 @if(\Session::has('success'))
