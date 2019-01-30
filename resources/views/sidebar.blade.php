@@ -32,8 +32,8 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Main Menu</li>
         <!-- Optionally, you can add icons to the links -->
-        <li ><a href="#"><i class="fa fa-link"></i> <span>Customer</span></a></li>
-        <li ><a href="#"><i class="fa fa-link"></i> <span>Product Master</span></a></li>
+        <li ><a href="/customers"><i class="fa fa-link"></i> <span>Customer</span></a></li>
+        <li ><a href="/products"><i class="fa fa-link"></i> <span>Product Master</span></a></li>
         
         
         
@@ -69,3 +69,4 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+  

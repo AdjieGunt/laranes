@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Stock;
+use App\Product;
 use DB;
 
 class StockController extends Controller
@@ -12,6 +13,7 @@ class StockController extends Controller
 
     public function stock_list(Request $request) {
         $data['title'] = 'Info Stock';
+        $data['products'] = Product::select('*')->get();
 
         // print_r($request->all());
 

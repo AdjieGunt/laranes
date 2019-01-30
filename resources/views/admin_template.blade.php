@@ -174,6 +174,7 @@ desired effect
 </div>
 <!-- ./wrapper -->
 
+
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
@@ -285,6 +286,7 @@ $( document ).ready(function() {
         success: function(data) {
           console.log(data);
           $('#sell_out_qty').removeAttr("disabled");
+          $('#sell_out_color_name').removeAttr("disabled");
           $('.info_stock').html("Current Stock : "+ data[0].stock_product_qty);
           current_stock = data[0].stock_product_qty;
         }
@@ -296,8 +298,62 @@ $( document ).ready(function() {
         console.log("Gak boleh lebih dari " + current_stock);
         $(this).val(current_stock);
       }
+    });
+
+    var pilih = function(id){
+      console.log(id);
+    }
+
+    $('#sell_out_cari_customer').click(function(){
+      var customer_search = $('#sell_out_customer');
+      // customer_search.attr('disabled', true);
+      
+      $.ajax({
+        url: "/search_customers",
+        type: "GET",
+        data: { q : customer_search.val()},
+        success: function(data) {
+          console.log(data);
+          if(data.length > 0){
+            var td = '<td>:data</td>';
+            var tr = '<tr>:td</tr>'; 
+            var thead = '<thead><tr><th>ID</th><th>Nama</th><th>Alamat</th><th>Pilih</th></tr>';
+            var custTable = '<table class="table">'+thead+'<tbody>:body</tbody></table>';
+            var custTableData = '';
+            for(i=0; i < data.length; i++){
+              var _ = data[i];
+              custTableData += '<tr>';
+              custTableData += td.replace(':data', _.customer_id);
+              custTableData += td.replace(':data', _.customer_name);
+              custTableData += td.replace(':data', _.customer_address);
+              custTableData += td.replace(':data', '<button onclick="pilih(`'+_.customer_name+'`,'+_.customer_id+')" class="btn-pilih btn btn-primary btn-sm">Pilih</button>');
+              custTableData += '</tr>';
+            }
+            $('#customer_modal_body').html(custTable.replace(':body', custTableData));
+          }
+          $('#customers_search_modal').modal('show');
+        }
+      });
+
+      console.log('cari customer', customer_search.val());
+    });
+
+    $('.btn-pilih').click(function(){
+      console.log($(this).attr('data-id'));
+    });
+
+    $('#new_customer_modal').click(function(){
+      $('#new_customer_modal').modal('show');
     })
+
+    
 });
+
+var pilih = function(name, id){
+  $('#sell_out_customer').val(name);
+  $('#sell_out_customer_hide').val(id);
+  $('#customers_search_modal').modal('hide');
+}
 
 
 </script>

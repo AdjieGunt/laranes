@@ -15,6 +15,12 @@
 //     return view('admin_template');
 // });
 
+Route::get('login', 'UsersController@login');
+
+Route::get('customers', 'CustomersController@index');
+Route::get('search_customers', 'CustomersController@search');
+Route::post('new_customer', 'CustomersController@store');
+
 Route::get('sell_in', 'SellController@index');
 Route::get('sell_in_list', 'SellController@sell_list');
 Route::get('sell_out_list', 'SellController@sell_list');
@@ -26,6 +32,16 @@ Route::post('sell_save', 'SellController@store');
 
 Route::get('sell_out', 'SellController@sell_out_form');
 
+Route::get('products', 'ProductController@index');
+Route::post('product_add', 'ProductController@store');
+
 
 Route::get('stock', 'StockController@stock_list');
 Route::get('check_stock', 'StockController@check_stock_for_sell_out');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

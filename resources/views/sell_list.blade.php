@@ -16,11 +16,33 @@
                         {{ \Session::get('success')}}
                     </div>
                 @endif
+                @if (\Request::is('sell_out_list'))
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Cari Customer</label>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" name="customer_q"  placeholder="Masukan Id atau nama" class="form-control" id="sell_out_customer"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" id="sell_out_cari_customer">Cari</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Sell {{ $sell_flag }} ID</th>
                   <th>Sell {{ $sell_flag }} Input Date</th>
+                  @if (\Request::is('sell_out_list'))
+                    <th>Customer Name</th>
+                  @endif                  
                   <th>Total Product</th>
                   <th>Total Qty</th>
                   <th>Created By</th>                  
@@ -51,7 +73,10 @@
                 @foreach($sell_in as $data)
                     <tr>
                         <td>{{ $data['sell_id'] }}</td>
-                        <td>{{ $data['sell_created_date'] }}</td>                        
+                        <td>{{ $data['sell_created_date'] }}</td>
+                        @if (\Request::is('sell_out_list'))
+                            <td>{{ $data['customer_name']}}</td>
+                        @endif                              
                         <td>{{ $data['total_product'] }}</td>
                         <td>{{ $data['total_qty'] }}</td>
                         <td>{{ $data['username'] }}</td>

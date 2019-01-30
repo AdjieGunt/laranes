@@ -30,7 +30,7 @@
                   <th>Product Packages</th>                  
                   <th>Product Qty</th>
                   <th>Color Base</th>
-                  <th>Action</th>
+                  <!-- <th>Action</th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -60,7 +60,7 @@
                         <td>{{ $data['sell_products_detail_product_packages'] }}</td>
                         <td>{{ $data['sell_products_detail_product_qty'] }}</td>
                         <td>{{ $data['sell_products_detail_product_base'] }}</td>
-                        <td><button class="btn btn-danger btn-sm">Delete</button></td>
+                        <!-- <td><button class="btn btn-danger btn-sm">Delete</button></td> -->
                     </tr>
                 @endforeach
                 </tbody>

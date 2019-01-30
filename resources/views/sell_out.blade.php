@@ -9,9 +9,6 @@
                     <h3 class="box-title">Sell Out </h3>
                 </div>
                 <div class="box-body">
-                <form role="form" action="{{url('/sell_save')}}" method="POST">
-                <input type="hidden" value="{{csrf_token()}}" name="_token" />
-                <input type="hidden" value="OUT" name="sell_flag" />
                 
                   <!-- text input -->
                   <!-- <div class="form-group">
@@ -19,17 +16,36 @@
                     <input type="date" class="form-control" name="sell_in_date" placeholder="Enter ...">
                   </div> -->
                   <div class="row product_field">
-                      
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Cari Customer</label>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <input type="text" name="customer_q"  placeholder="Masukan Id atau nama" class="form-control" id="sell_out_customer"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" id="sell_out_cari_customer">Cari</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <form role="form" action="{{url('/sell_save')}}" method="POST">
+                    <input type="hidden" value="{{csrf_token()}}" name="_token" />
+                    <input type="hidden" value="OUT" name="sell_flag" />
+                    <input type="hidden" name="customer_id" id="sell_out_customer_hide"/>
+
                       <div class="col-md-8">
                         <div class="form-group">
                             <label>Product</label>
                             <select class="form-control" name="product_id[]" id="sell_out_prod_id">
                                 <option value="">Choose Product ...</option>                        
-                                <option value="1">Pentalite</option>
-                                <option value="2">Easy Clean</option>
-                                <option value="3">option 3</option>
-                                <option value="4">option 4</option>
-                                <option value="5">option 5</option>
+                                @foreach($product_data as $row)
+                                    <option value="{{$row['product_id']}}">{{$row['product_name']}}</option>
+                                @endforeach
                             </select>
                         </div>
                       </div>
@@ -58,6 +74,12 @@
                                  <option value="E">E</option>
                              </select>
                           </div>
+                      </div>
+                      <div class="col-md-8">
+                          <div class="form-group">
+                             <label>Color Name</label>
+                             <input type="text" class="form-control" id="sell_out_color_name" placeholder="Enter ..." name="product_qty[]" disabled>
+                           </div>
                       </div>
                       <div class="col-md-8">
                           <div class="form-group">
@@ -94,4 +116,22 @@
         </div><!-- /.col -->
     
     </div><!-- /.row -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="customers_search_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Search Customers</h4>
+            </div>
+            <div class="modal-body" id="customer_modal_body">
+                <h4>Data tidak ditemukan!</h4>
+                <a href="/customers" class="btn btn-primary">Create New Customer</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 @endsection

@@ -18,7 +18,7 @@ class CreateTableProductsStock extends Migration
             $table->integer('stock_product_id')->unsigned();
             $table->integer('stock_product_color_base');
             $table->integer('stock_product_qty');
-            $table->enum('stock_product_packages', ['2.5 L', '20 L', '5 Kg', '25 Kg']);                        
+            $table->string('stock_product_packages');                        
             $table->timestamps();
 
             $table->foreign('stock_product_id', 'stock_product_id')->references('product_id')->on('products');

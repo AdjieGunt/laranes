@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Sell;
 use App\SellProductDetail;
 use App\Stock;
+use App\Product;
 
 
 use Illuminate\Support\Facades\DB;
@@ -19,38 +20,58 @@ class SellController extends Controller
 {
     public function index() {
         $data['title'] = 'Sell In Product';
+
+        $data['product_data'] = Product::select('product_id', 'product_name')->get();
         
         return view('test')->with($data);
     }
 
     public function sell_list(Request $request) {
-            $sell_flag = $request->is('sell_in_list') ? 'In' : 'Out';
-            $data['title'] = 'Sell '.ucfirst($sell_flag).' List';
-            $data['sell_flag'] = $sell_flag;
-
+        $sell_flag = $request->is('sell_in_list') ? 'In' : 'Out';
+        $data['title'] = 'Sell '.ucfirst($sell_flag).' List';
+        $data['sell_flag'] = $sell_flag;
+        if($sell_flag === 'Out'){
             $sell_in = DB::table('sell_products_detail as sd')
-                        ->join('sell as s', 'sd.sell_id', '=', 's.sell_id')
-                        ->join('products as p', 'sd.sell_products_detail_product_id', '=', 'p.product_id')
-                        ->join('users as u', 'sd.sell_products_detail_created_by', '=', 'u.user_id')
-                        ->select(
-                            's.sell_id',
-                            's.sell_created_date',
-                            DB::raw('SUM(sd.sell_products_detail_product_qty) as total_qty'),
-                            DB::raw('COUNT(sd.sell_products_detail_product_id) as total_product'),
-                            'u.username'                            
-                            
-                            )                        
-                        ->where('s.sell_flag', '=', $sell_flag)
-                        ->groupBy('s.sell_id', 'u.username')
-                        ->orderBy('s.sell_id','desc')
-                        ->get();
-            $sell_in = collect($sell_in)->map(function($x){ return (array) $x;})->toArray();
+                    ->join('sell as s', 'sd.sell_id', '=', 's.sell_id')
+                    ->join('products as p', 'sd.sell_products_detail_product_id', '=', 'p.product_id')
+                    ->join('users as u', 'sd.sell_products_detail_created_by', '=', 'u.user_id')
+                    ->join('customers as cs', 's.customer_id', '=', 'cs.customer_id')
+                    ->select(
+                        's.sell_id',
+                        's.sell_created_date',
+                        DB::raw('SUM(sd.sell_products_detail_product_qty) as total_qty'),
+                        DB::raw('COUNT(sd.sell_products_detail_product_id) as total_product'),
+                        'u.username',                            
+                        'cs.customer_name'
+                        )                        
+                    ->where('s.sell_flag', '=', $sell_flag)
+                    ->groupBy('s.sell_id', 'u.username', 's.sell_created_date','cs.customer_name')
+                    ->orderBy('s.sell_id','desc')
+                    ->get();
+        } else {
+            $sell_in = DB::table('sell_products_detail as sd')
+                    ->join('sell as s', 'sd.sell_id', '=', 's.sell_id')
+                    ->join('products as p', 'sd.sell_products_detail_product_id', '=', 'p.product_id')
+                    ->join('users as u', 'sd.sell_products_detail_created_by', '=', 'u.user_id')
+                    ->select(
+                        's.sell_id',
+                        's.sell_created_date',
+                        DB::raw('SUM(sd.sell_products_detail_product_qty) as total_qty'),
+                        DB::raw('COUNT(sd.sell_products_detail_product_id) as total_product'),
+                        'u.username'
+                        )                        
+                    ->where('s.sell_flag', '=', $sell_flag)
+                    ->groupBy('s.sell_id', 'u.username', 's.sell_created_date')
+                    ->orderBy('s.sell_id','desc')
+                    ->get();
+        }
+        $sell_in = collect($sell_in)->map(function($x){ return (array) $x;})->toArray();
 
-            $data['sell_in'] = $sell_in;
-            // print_r($sell_in);
-            // return json_encode($sell_in);
+        $data['sell_in'] = $sell_in;
+        // print_r($sell_in);
+        // return json_encode($sell_in);
 
-            return view('sell_list')->with($data);
+        return view('sell_list')->with($data);
     }
 
     public function sell_list_detail($id) {
@@ -78,14 +99,13 @@ class SellController extends Controller
     }
 
     public function store(Request $request) {
-        // print_r($request->all());
-        
-        
+        // print_r($request->all());die();
         $data['sell_created_by'] = 1;
         $data['sell_updated_by'] = 1;
         
         $req = $request->all();
         $data['sell_flag'] = $req['sell_flag'];
+        $data['customer_id'] = isset($req['customer_id']) ? $req['customer_id'] : null;
 
         if(
             count($req['product_id']) == count($req['product_package']) 
@@ -115,13 +135,15 @@ class SellController extends Controller
                     $this->update_stock($data['sell_flag'], $stock_data);
                     
                 }
-                return redirect('/sell_in_list')->with('success', 'Sell '.$data['sell_flag'].' data with '.$i.' product(s) inserted succesfully!');
+                return redirect('/sell_'.strtolower($req['sell_flag']).'_list')->with('success', 'Sell '.$data['sell_flag'].' data with '.$i.' product(s) inserted succesfully!');
             }
         }
     }
 
     public function sell_out_form(){
         $data['title'] = "Sell Out Product";
+        $data['product_data'] = Product::select('product_id', 'product_name')->get();
+
         return view('sell_out')->with($data);
     }
     
