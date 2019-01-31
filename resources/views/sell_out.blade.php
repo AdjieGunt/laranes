@@ -78,7 +78,7 @@
                       <div class="col-md-8">
                           <div class="form-group">
                              <label>Color Name</label>
-                             <input type="text" class="form-control" id="sell_out_color_name" placeholder="Enter ..." name="product_qty[]" disabled>
+                             <input type="text" class="form-control" id="sell_out_color_name" placeholder="Enter ..." name="sell_out_color_name[]" disabled>
                            </div>
                       </div>
                       <div class="col-md-8">

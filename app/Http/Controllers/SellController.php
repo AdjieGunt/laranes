@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\DB;
 
 class SellController extends Controller
 {
+    // public function __construct() {
+    //     $this->middleware('auth');
+    // }
+
     public function index() {
         $data['title'] = 'Sell In Product';
 
@@ -42,12 +46,23 @@ class SellController extends Controller
                         DB::raw('SUM(sd.sell_products_detail_product_qty) as total_qty'),
                         DB::raw('COUNT(sd.sell_products_detail_product_id) as total_product'),
                         'u.username',                            
-                        'cs.customer_name'
+                        'cs.customer_name',
+                        'cs.customer_id'
                         )                        
                     ->where('s.sell_flag', '=', $sell_flag)
-                    ->groupBy('s.sell_id', 'u.username', 's.sell_created_date','cs.customer_name')
-                    ->orderBy('s.sell_id','desc')
-                    ->get();
+                    ->groupBy('s.sell_id', 'u.username', 's.sell_created_date','cs.customer_name', 'cs.customer_id')
+                    ->orderBy('s.sell_id','desc');
+                    // ->get();
+
+                    if($request->has('customer')) {
+                        $identifier = $request->get('customer');
+                        $sell_in = $sell_in->where(function($query) use($identifier){
+                            $query->where('cs.customer_name', 'like', '%' . $identifier . '%')
+                                    ->orWhere('cs.customer_id', '=', $identifier);
+                        });
+                    };
+
+                    $sell_in = $sell_in->get();
         } else {
             $sell_in = DB::table('sell_products_detail as sd')
                     ->join('sell as s', 'sd.sell_id', '=', 's.sell_id')
@@ -120,6 +135,7 @@ class SellController extends Controller
                     $product['sell_products_detail_product_id'] = $req['product_id'][$i];
                     $product['sell_products_detail_product_qty'] = $req['product_qty'][$i];
                     $product['sell_products_detail_product_base'] = $req['product_color_base'][$i];
+                    $product['sell_products_detail_product_color'] = $req['sell_out_color_name'][$i];
                     $product['sell_products_detail_product_packages'] = $req['product_package'][$i];
                     $product['sell_products_detail_created_by'] = 1;
                     $product['sell_products_detail_updated_by'] = 1;

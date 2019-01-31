@@ -21,16 +21,19 @@
                     <div class="form-group">
                         <label>Cari Customer</label>
                         <div class="row">
+                          <form role="form" action="{{url('/sell_out_list')}}" method="GET">
+                        
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <input type="text" name="customer_q"  placeholder="Masukan Id atau nama" class="form-control" id="sell_out_customer"/>
+                                    <input type="text" name="customer"  placeholder="Masukan Id atau nama" class="form-control" id="customer"/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <button class="btn btn-primary" id="sell_out_cari_customer">Cari</button>
+                                    <button type="submit" class="btn btn-primary" id="cari_customer">Cari Customer</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -41,7 +44,7 @@
                   <th>Sell {{ $sell_flag }} ID</th>
                   <th>Sell {{ $sell_flag }} Input Date</th>
                   @if (\Request::is('sell_out_list'))
-                    <th>Customer Name</th>
+                    <th>Customer Name (ID)</th>
                   @endif                  
                   <th>Total Product</th>
                   <th>Total Qty</th>
@@ -75,7 +78,7 @@
                         <td>{{ $data['sell_id'] }}</td>
                         <td>{{ $data['sell_created_date'] }}</td>
                         @if (\Request::is('sell_out_list'))
-                            <td>{{ $data['customer_name']}}</td>
+                            <td>{{ $data['customer_name'] }} ({{ $data['customer_id'] }})</td>
                         @endif                              
                         <td>{{ $data['total_product'] }}</td>
                         <td>{{ $data['total_qty'] }}</td>

@@ -30,6 +30,10 @@
                   <th>Product Packages</th>                  
                   <th>Product Qty</th>
                   <th>Color Base</th>
+                    @if (\Request::is('sell_out_list/*/detail'))
+                    <th>Color Name</th>
+                    @endif
+
                   <!-- <th>Action</th> -->
                 </tr>
                 </thead>
@@ -60,6 +64,7 @@
                         <td>{{ $data['sell_products_detail_product_packages'] }}</td>
                         <td>{{ $data['sell_products_detail_product_qty'] }}</td>
                         <td>{{ $data['sell_products_detail_product_base'] }}</td>
+                        <td>{{ $data['sell_products_detail_product_color'] }}</td>
                         <!-- <td><button class="btn btn-danger btn-sm">Delete</button></td> -->
                     </tr>
                 @endforeach
