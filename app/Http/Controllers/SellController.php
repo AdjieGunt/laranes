@@ -135,7 +135,7 @@ class SellController extends Controller
                     $product['sell_products_detail_product_id'] = $req['product_id'][$i];
                     $product['sell_products_detail_product_qty'] = $req['product_qty'][$i];
                     $product['sell_products_detail_product_base'] = $req['product_color_base'][$i];
-                    $product['sell_products_detail_product_color'] = $req['sell_out_color_name'][$i];
+                    $product['sell_products_detail_product_color'] = $req['sell_out_color_name'] ? $req['sell_out_color_name'][$i] : '';
                     $product['sell_products_detail_product_packages'] = $req['product_package'][$i];
                     $product['sell_products_detail_created_by'] = 1;
                     $product['sell_products_detail_updated_by'] = 1;
