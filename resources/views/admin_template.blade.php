@@ -7,6 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ $title }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -326,6 +327,7 @@ $( document ).ready(function() {
               custTableData += td.replace(':data', _.customer_id);
               custTableData += td.replace(':data', _.customer_name);
               custTableData += td.replace(':data', _.customer_address);
+              custTableData += td.replace(':data', _.customer_phone); 
               custTableData += td.replace(':data', '<button onclick="pilih(`'+_.customer_name+'`,'+_.customer_id+')" class="btn-pilih btn btn-primary btn-sm">Pilih</button>');
               custTableData += '</tr>';
             }
@@ -355,8 +357,14 @@ var pilih = function(name, id){
   $('#customers_search_modal').modal('hide');
 }
 
+var deleteProduct = function(){
+  console.log('sda');
+}
+
 
 </script>
+
+@yield('custom_script')
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

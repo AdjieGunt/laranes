@@ -12,6 +12,7 @@ class Product extends Model
     protected $primaryKey = 'product_id';
     protected $fillable = [
         'product_name',
+        'product_code',
         'product_created_date',
         'product_updated_date',
         'product_created_by',

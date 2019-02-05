@@ -75,5 +75,16 @@ class StockController extends Controller
 
         return response()->json($data);
     }
+
+    public function update_stock(Request $req) {
+        $stockID = $req->get('stockid');
+        $newQty = $req->get('qty');
+        $update = Stock::find($stockID)->update(['stock_product_qty' => $newQty, 'stock_id' => $stockID]);
+    }
+
+    public function delete_stock(Request $req) {
+        $stockID = $req->get('stockid');
+        $update = Stock::find($stockID)->delete();
+    }
     
 }

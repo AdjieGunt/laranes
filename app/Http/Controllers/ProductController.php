@@ -10,7 +10,7 @@ class ProductController extends Controller
     //
     public function index(){
         $data['title'] = 'Product Master';
-        $data['product'] = Product::select('product_name')->get();
+        $data['product'] = Product::select('product_id', 'product_name', 'product_code')->get();
 
         return view('product_master', $data);
     }
@@ -20,6 +20,7 @@ class ProductController extends Controller
         $timestamps = \Carbon\Carbon::now('Asia/Jakarta');
         $data = [
             'product_name' => $req['product_name'],
+            'product_code' => $req['product_code'],
             'product_created_date' => $timestamps,
             'product_updated_date' => $timestamps,
             'product_created_by' => 1,

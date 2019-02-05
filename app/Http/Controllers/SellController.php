@@ -142,7 +142,10 @@ class SellController extends Controller
                     
                     SellProductDetail::create($product);
 
+                    $prod = Product::find($req['product_id'])->first();
+
                     // Update stock
+                    $stock_data['stock_id'] = $prod->product_code . $req['product_color_base'][$i] . str_replace('L', '', str_replace('.','', $req['product_package'][$i]));
                     $stock_data['product_id'] = $req['product_id'][$i];
                     $stock_data['product_qty'] = $req['product_qty'][$i];
                     $stock_data['product_package'] = $req['product_package'][$i];
@@ -175,9 +178,9 @@ class SellController extends Controller
         if($current_stock->isEmpty()) {
             // if empty, insert data to db
             $stock = new Stock;
+            $stock->stock_id = $data['stock_id'];
             $stock->stock_product_id = $data['product_id'];
             $stock->stock_product_color_base = $data['product_color_base'];
-            $stock->stock_product_package = $data['product_package'];
             $stock->stock_product_package = $data['product_package'];
             $stock->stock_product_qty = $data['product_qty'];
 

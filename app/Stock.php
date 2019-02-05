@@ -11,6 +11,7 @@ class Stock extends Model
 
     protected $primaryKey = 'stock_id';
     protected $fillable = [
+        'stock_id',
         'stock_product_id',
         'stock_product_color_base',
         'stock_product_package',

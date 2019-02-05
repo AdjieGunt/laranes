@@ -22,7 +22,7 @@ class CustomersController extends Controller
     public function search(Request $req){
         $q = $req['q'];
 
-        $get_data = Customers::select('customer_id', 'customer_name', 'customer_address')->where(
+        $get_data = Customers::select('customer_id', 'customer_name', 'customer_address', 'customer_phone')->where(
             function ($query) use ($q){
                 $query->where('customer_id','=', $q)
                 ->orWhere('customer_name','like', '%'.$q.'%');

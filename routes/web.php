@@ -40,6 +40,8 @@ Route::post('product_add', 'ProductController@store');
 
 Route::get('stock', 'StockController@stock_list');
 Route::get('check_stock', 'StockController@check_stock_for_sell_out');
+Route::post('stock/update_stock', 'StockController@update_stock');
+Route::post('stock/delete_stock', 'StockController@delete_stock');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
