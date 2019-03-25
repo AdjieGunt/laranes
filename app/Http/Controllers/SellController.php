@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Sell;
@@ -45,12 +46,12 @@ class SellController extends Controller
                         's.sell_created_date',
                         DB::raw('SUM(sd.sell_products_detail_product_qty) as total_qty'),
                         DB::raw('COUNT(sd.sell_products_detail_product_id) as total_product'),
-                        'u.username',                            
+                        'u.name',                            
                         'cs.customer_name',
                         'cs.customer_id'
                         )                        
                     ->where('s.sell_flag', '=', $sell_flag)
-                    ->groupBy('s.sell_id', 'u.username', 's.sell_created_date','cs.customer_name', 'cs.customer_id')
+                    ->groupBy('s.sell_id', 'u.name', 's.sell_created_date','cs.customer_name', 'cs.customer_id')
                     ->orderBy('s.sell_id','desc');
                     // ->get();
 
@@ -73,10 +74,10 @@ class SellController extends Controller
                         's.sell_created_date',
                         DB::raw('SUM(sd.sell_products_detail_product_qty) as total_qty'),
                         DB::raw('COUNT(sd.sell_products_detail_product_id) as total_product'),
-                        'u.username'
+                        'u.name'
                         )                        
                     ->where('s.sell_flag', '=', $sell_flag)
-                    ->groupBy('s.sell_id', 'u.username', 's.sell_created_date')
+                    ->groupBy('s.sell_id', 'u.name', 's.sell_created_date')
                     ->orderBy('s.sell_id','desc')
                     ->get();
         }
@@ -115,8 +116,9 @@ class SellController extends Controller
 
     public function store(Request $request) {
         // print_r($request->all());die();
-        $data['sell_created_by'] = 1;
-        $data['sell_updated_by'] = 1;
+        $userId = Auth::id();
+        $data['sell_created_by'] = $userId ;
+        $data['sell_updated_by'] = $userId ;
         
         $req = $request->all();
         $data['sell_flag'] = $req['sell_flag'];
@@ -137,8 +139,8 @@ class SellController extends Controller
                     $product['sell_products_detail_product_base'] = $req['product_color_base'][$i];
                     $product['sell_products_detail_product_color'] = $req['sell_flag'] === 'out' || $req['sell_flag'] === 'OUT' ? $req['sell_out_color_name'][$i] : '';
                     $product['sell_products_detail_product_packages'] = $req['product_package'][$i];
-                    $product['sell_products_detail_created_by'] = 1;
-                    $product['sell_products_detail_updated_by'] = 1;
+                    $product['sell_products_detail_created_by'] = $userId;
+                    $product['sell_products_detail_updated_by'] = $userId;
                     
                     SellProductDetail::create($product);
 
