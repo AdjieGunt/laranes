@@ -236,9 +236,12 @@ $( document ).ready(function() {
           var option_pkg = '<option val="">Choose Package ..</option>';
           var option_color_base = '<option val="">Choose Color ..</option>';
           var color_opt = "";
+          var pkg_tem = '';
           for(var i=0; i < data.length; i++) {
-            console.log(data[i]);
-            option_pkg += '<option val="'+data[i].stock_product_package+'">' +data[i].stock_product_package+'</option>';
+            if(pkg_tem !== data[i].stock_product_package) {
+              option_pkg += '<option val="'+data[i].stock_product_package+'">' +data[i].stock_product_package+'</option>'; 
+              pkg_tem = data[i].stock_product_package;            
+            }
       
           }
           
@@ -355,10 +358,6 @@ var pilih = function(name, id){
   $('#sell_out_customer').val(name);
   $('#sell_out_customer_hide').val(id);
   $('#customers_search_modal').modal('hide');
-}
-
-var deleteProduct = function(){
-  console.log('sda');
 }
 
 

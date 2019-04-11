@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Database\QueryException;
 
 class ProductController extends Controller
 {
@@ -32,5 +33,23 @@ class ProductController extends Controller
         Product::create($data);
 
         return redirect('/products');
+    }
+
+    public function delete(Request $request) {
+        $productId = $request->get('product_id');
+        try {
+            $update = Product::find($productId)->delete();
+
+            $resp = [
+                "status" => 'ok'
+            ];
+        } catch (QueryException $err) {
+            $resp = [
+                "status" => 'error',
+                "message" => 'Produk sudah masuk stok, tidak bisa dihapus!',
+            ];
+        }
+
+        return response()->json($resp);
     }
 }

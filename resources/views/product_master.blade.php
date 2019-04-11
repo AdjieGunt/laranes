@@ -14,7 +14,7 @@
               <table id="example2" class="table table-bordered table-hover">
                 @foreach($product as $row)
                   <tr>
-                    <td>{{ $row['product_name'] }} ({{ $row['product_code'] }}) <button onClick="deletePorduct()" id="delete-product-{{$row['product_id']}}" data-id="{{ $row['product_id'] }}" class="btn btn-sm btn-danger pull-right">Hapus</button></td>
+                    <td>{{ $row['product_name'] }} ({{ $row['product_code'] }}) <button id="delete-product-{{$row['product_id']}}" data-id="{{ $row['product_id'] }}" class="btn-delete btn btn-sm btn-danger pull-right">Hapus</button></td>
                   </tr>
                 @endforeach
                 <tr>
@@ -54,9 +54,33 @@
 @section('custom_script')
 <script>
   // $( document ).ready(function() {
-    var deleteProduct = function(){
-      console.log('sda');
-    }
+    $('.btn-delete').click(function(){
+      var id = $(this).attr('data-id');
+      console.log($('meta[name="csrf-token"]').attr('content'));
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+        var data = {
+            'product_id': id,
+        }
+
+        $.ajax({
+            type:"POST",
+            url: "product_delete",
+            data: data,
+            success: function(response) {
+                console.log("yesy!", response);
+                // window.location.reload()
+                if (response.status === 'ok') {
+                  window.location.reload();
+                } else {
+                  alert(response.message);
+                }
+            }
+        })
+    })
   // })
 </script>
 @endsection

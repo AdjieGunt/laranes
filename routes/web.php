@@ -38,6 +38,7 @@ Route::get('sell_out', 'SellController@sell_out_form');
 
 Route::get('products', 'ProductController@index');
 Route::post('product_add', 'ProductController@store');
+Route::post('product_delete', 'ProductController@delete');
 
 Route::get('stock', 'StockController@stock_list');
 Route::get('check_stock', 'StockController@check_stock_for_sell_out');
