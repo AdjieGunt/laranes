@@ -70,6 +70,7 @@
                   <th>Email</th>
                   <th>Phone</th>
                   <th>Address</th>
+                  <th>Action</th>
                 </tr>
                 @foreach($customers as $row)
                   <tr>
@@ -78,6 +79,10 @@
                     <td>{{ $row['customer_email'] }}</td>
                     <td>{{ $row['customer_phone'] }}</td>
                     <td>{{ $row['customer_address'] }}</td>
+                    <td>
+                      <a href="/customers/{{ $row['customer_id'] }}/edit" class="btn btn-primary">Edit</a>
+                      <a href="/customers/{{ $row['customer_id'] }}/delete" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus?');" >Delete</a>
+                    </td>
                   </tr>
                 @endforeach
               </table>

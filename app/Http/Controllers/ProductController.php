@@ -33,4 +33,16 @@ class ProductController extends Controller
 
         return redirect('/products');
     }
+
+    public function delete($id){
+        $products = Product::find($id);
+
+        // return $products->trashed();
+
+        if($products->delete()) {
+            return redirect('/products');
+        }
+
+        return redirect('/products');
+    }
 }

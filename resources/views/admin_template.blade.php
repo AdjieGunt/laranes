@@ -318,7 +318,7 @@ $( document ).ready(function() {
           if(data.length > 0){
             var td = '<td>:data</td>';
             var tr = '<tr>:td</tr>'; 
-            var thead = '<thead><tr><th>ID</th><th>Nama</th><th>Alamat</th><th>Pilih</th></tr>';
+            var thead = '<thead><tr><th>ID</th><th>Nama</th><th>Alamat</th><th>No Telp</th></tr>';
             var custTable = '<table class="table">'+thead+'<tbody>:body</tbody></table>';
             var custTableData = '';
             for(i=0; i < data.length; i++){

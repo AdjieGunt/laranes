@@ -12,12 +12,7 @@
             </div>
             <div class="box-body">
               <table id="example2" class="table table-bordered table-hover">
-                @foreach($product as $row)
-                  <tr>
-                    <td>{{ $row['product_name'] }} ({{ $row['product_code'] }}) <button onClick="deletePorduct()" id="delete-product-{{$row['product_id']}}" data-id="{{ $row['product_id'] }}" class="btn btn-sm btn-danger pull-right">Hapus</button></td>
-                  </tr>
-                @endforeach
-                <tr>
+              <tr>
                   <td>
                     <form role="form" action="{{url('/product_add')}}" method="POST">
                       <input type="hidden" value="{{csrf_token()}}" name="_token" />
@@ -25,13 +20,13 @@
                         <div class="col-md-8">
                           <div class="form-group">
                             <label for="product_name">Product Name</label>
-                            <input type="text" class="form-control" id="product_name" placeholder="Product Name" name="product_name">
+                            <input required type="text" class="form-control" id="product_name" placeholder="Product Name" name="product_name">
                           </div>
                         </div>
                         <div class="col-md-8 mt-4">
                           <div class="form-group">
                             <label for="product_name">Product Code</label>
-                            <input type="text" class="form-control" id="product_code" placeholder="Product Code" name="product_code">
+                            <input required type="text" class="form-control" id="product_code" placeholder="Product Code" name="product_code">
                           </div>
                         </div>
                         <div class="form-group">
@@ -43,6 +38,11 @@
                     </form>
                   </td>
                 </tr>
+                @foreach($product as $row)
+                  <tr>
+                    <td>{{ $row['product_name'] }} ({{ $row['product_code'] }}) <a href="/products/delete/{{$row['product_id']}}"  class="btn btn-sm btn-danger pull-right">Hapus</a></td>
+                  </tr>
+                @endforeach
               </table>
 
             </div>

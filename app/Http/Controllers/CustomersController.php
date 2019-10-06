@@ -44,4 +44,34 @@ class CustomersController extends Controller
 
         return redirect('/customers');
     }
+
+    public function edit($id){
+        $customer = Customers::find($id);
+
+        $data['title'] = 'Edit Customer';
+        $data['customers'] = $customer;
+
+        return view('customers_edit', $data);
+    }
+
+    public function delete($id){
+        $customer = Customers::find($id)->delete();
+
+        return redirect('/customers');        
+    }
+
+    public function patch(Request $req){
+        $customer_id = $req['customer_id'];
+
+        $edit = [
+            'customer_name' => $req['customer_name'],
+            'customer_email' => $req['customer_email'],
+            'customer_phone' => $req['customer_phone'],
+            'customer_address' => $req['customer_address']
+        ];
+
+        $customer = Customers::find($customer_id)->update($edit);
+
+        return redirect('/customers');
+    }
 }

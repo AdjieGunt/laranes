@@ -21,6 +21,11 @@ Route::get('/', 'SellController@index');
 Route::get('login', 'UsersController@login');
 
 Route::get('customers', 'CustomersController@index');
+Route::get('customers/{id}/edit', 'CustomersController@edit');
+Route::get('customers/{id}/delete', 'CustomersController@delete');
+
+Route::post('customers/edit', 'CustomersController@patch');
+
 Route::get('search_customers', 'CustomersController@search');
 Route::post('new_customer', 'CustomersController@store');
 
@@ -36,6 +41,7 @@ Route::post('sell_save', 'SellController@store');
 Route::get('sell_out', 'SellController@sell_out_form');
 
 Route::get('products', 'ProductController@index');
+Route::get('products/delete/{id}', 'ProductController@delete');
 Route::post('product_add', 'ProductController@store');
 
 Route::get('stock', 'StockController@stock_list');
