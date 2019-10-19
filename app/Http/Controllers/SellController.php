@@ -174,7 +174,9 @@ class SellController extends Controller
                                 ->where('stock_product_color_base',$data['product_color_base'])
                                 ->where('stock_product_package',$data['product_package'])
                                 ->get();
-        // print_r($current_stock->stock_product_id);die();
+        // print_r($current_stock);
+        // print_r($current_stock->first()->stock_id);
+        // die();
         if($current_stock->isEmpty()) {
             // if empty, insert data to db
             $stock = new Stock;
