@@ -46,7 +46,7 @@
                   @if (\Request::is('sell_out_list'))
                     <th>Customer Name (ID)</th>
                   @endif                  
-                  <th>Total Product</th>
+                  <!-- <th>Total Product</th> -->
                   <th>Total Qty</th>
                   <th>Created By</th>                  
                   <!-- <th>A</th>
@@ -80,7 +80,7 @@
                         @if (\Request::is('sell_out_list'))
                             <td>{{ $data['customer_name'] }} ({{ $data['customer_id'] }})</td>
                         @endif                              
-                        <td>{{ $data['total_product'] }}</td>
+                        <!-- <td>{{ $data['total_product'] }}</td> -->
                         <td>{{ $data['total_qty'] }}</td>
                         <td>{{ $data['username'] }}</td>
                         <td>

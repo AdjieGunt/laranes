@@ -56,13 +56,13 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label>Quantity</label>
-                            <input type="number" class="form-control" placeholder="Enter ..." name="product_qty[]">
+                            <input type="number" id="quantity-sell" class="quantity-sell form-control" placeholder="Enter ..." name="product_qty[]">
                         </div>
                     </div>
 
                     <div class="col-md-8">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button disabled type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
 
@@ -75,4 +75,23 @@
         </div><!-- /.col -->
     
     </div><!-- /.row -->
+@endsection
+
+@section('custom_script')
+<script>
+$( document ).ready(function() {
+    console.log("sell in ready");
+    var $buttonSubmit = $("button[type='submit']");
+  $("input[id='quantity-sell']").on('input', function() {
+        var qty = $(this).val();
+        if(qty > 0) {
+            $buttonSubmit.removeAttr('disabled');
+            return;
+        } 
+        if(qty <= 0) { 
+            $buttonSubmit.attr('disabled', true);
+        }
+  })
+})
+</script>
 @endsection

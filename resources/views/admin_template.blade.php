@@ -285,11 +285,14 @@ $( document ).ready(function() {
         url: "/check_stock?product_id="+product_id+"&product_pkg="+product_pkg+"&product_color_base="+product_color_base,
         type: "GET",
         success: function(data) {
-          console.log(data);
-          $('#sell_out_qty').removeAttr("disabled");
-          $('#sell_out_color_name').removeAttr("disabled");
-          $('.info_stock').html("Current Stock : "+ data[0].stock_product_qty);
           current_stock = data[0].stock_product_qty;
+          if(current_stock > 0){
+            $('#sell_out_qty').removeAttr("disabled");
+            $('.info_stock').html("Current Stock : "+ current_stock);
+            return
+          }
+          $('#sell_out_color_name').removeAttr("disabled");
+          $('.info_stock').html("Stok tidak tersedia");
         }
       })
     })

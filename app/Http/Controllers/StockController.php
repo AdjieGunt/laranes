@@ -15,6 +15,8 @@ class StockController extends Controller
         $data['title'] = 'Info Stock';
         $data['products'] = Product::select('*')->get();
 
+        $productId = '';
+
         // print_r($request->all());
 
         $query = DB::table('stock as s')
@@ -24,11 +26,21 @@ class StockController extends Controller
             $stocks = $query->get();
         } else {
             $req = $request->all();
-            $stocks = $query->where('stock_product_id', $req['product_id'])
-                            ->where('stock_product_color_base', $req['product_color_base'])
-                            ->where('stock_product_package', $req['product_package'])
-                            // ->where('stock_product_package', $req['product_package'])                           
-                            ->get();            
+
+            if($request->has('product_id') && !empty($req['product_id'])) {
+                $query = $query->where('stock_product_id', $req['product_id']);
+            }
+
+            if($request->has('product_color_base') && !empty($req['product_color_base'])) {
+                // die($req['product_color_base'] !== );
+                $query = $query->where('stock_product_color_base', 'LIKE', "%{$req['product_color_base']}%");
+            }
+
+            if($request->has('product_package') && !empty($req['product_package'])) {
+                $query = $query->where('stock_product_package', $req['product_package']);
+            }
+
+            $stocks = $query->get();            
         }
 
         $data['sell_in'] = $stocks;
