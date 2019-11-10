@@ -224,6 +224,8 @@ $( document ).ready(function() {
       console.log($(this).val());
 
       product_id = $(this).val();
+
+      const available_package = [];
   
       $.ajax({
         url: "/check_stock?product_id="+product_id,
@@ -238,7 +240,12 @@ $( document ).ready(function() {
           var color_opt = "";
           for(var i=0; i < data.length; i++) {
             console.log(data[i]);
-            option_pkg += '<option val="'+data[i].stock_product_package+'">' +data[i].stock_product_package+'</option>';
+
+            if (!available_package.includes(data[i].stock_product_package)){
+              option_pkg += '<option val="'+data[i].stock_product_package+'">' +data[i].stock_product_package+'</option>';
+              available_package.push(data[i].stock_product_package);
+            }
+            
       
           }
           

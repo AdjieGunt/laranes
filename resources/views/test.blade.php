@@ -82,7 +82,7 @@
 $( document ).ready(function() {
     console.log("sell in ready");
     var $buttonSubmit = $("button[type='submit']");
-  $("input[id='quantity-sell']").on('input', function() {
+    $("input[id='quantity-sell']").on('input', function() {
         var qty = $(this).val();
         if(qty > 0) {
             $buttonSubmit.removeAttr('disabled');
@@ -91,7 +91,7 @@ $( document ).ready(function() {
         if(qty <= 0) { 
             $buttonSubmit.attr('disabled', true);
         }
-  })
+    })
 })
 </script>
 @endsection
