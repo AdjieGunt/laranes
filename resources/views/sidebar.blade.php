@@ -64,6 +64,7 @@
         </li>
 
         <li {{{ Request::is('stock') ? 'class=active' : '' }}}><a href="{{ url("/stock") }}"><i class="fa fa-database"></i> <span>Info Stock</span></a></li>
+        <li ><a href="/logout"><i class="fa fa-link"></i> <span>Logout</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
