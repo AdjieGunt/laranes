@@ -33,11 +33,8 @@
                     <div class="form-group">
                         <label>Product Packages</label>
                         <select class="form-control" name="product_package[]">
-                            <option value="2 L">2 L</option>
                             <option value="2.5 L"> 2.5 L</option>
                             <option value="20 L">20 L</option>
-                            <option value="5 Kg">5 Kg</option>
-                            <option value="25 Kg">25 Kg</option>
                         </select>
                     </div>
                     </div>
