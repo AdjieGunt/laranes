@@ -293,19 +293,22 @@ $( document ).ready(function() {
         type: "GET",
         success: function(data) {
           current_stock = data[0].stock_product_qty;
+          console.log('current_stock ', current_stock);
+          
           if(current_stock > 0){
             $('#sell_out_qty').removeAttr("disabled");
+            $('#sell_out_color_name').removeAttr("disabled");
             $('.info_stock').html("Current Stock : "+ current_stock);
             return
           }
-          $('#sell_out_color_name').removeAttr("disabled");
           $('.info_stock').html("Stok tidak tersedia");
         }
       })
     })
 
     $('#sell_out_qty').change(function(){
-      if($(this).val() > current_stock) {
+      const val = Number($(this).val());
+      if(val > Number(current_stock)) {
         console.log("Gak boleh lebih dari " + current_stock);
         $(this).val(current_stock);
       }
