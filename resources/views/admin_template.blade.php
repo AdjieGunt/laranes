@@ -308,9 +308,23 @@ $( document ).ready(function() {
 
     $('#sell_out_qty').change(function(){
       const val = Number($(this).val());
+      const submitBtn = $('#submit-sell-out');
       if(val > Number(current_stock)) {
         console.log("Gak boleh lebih dari " + current_stock);
         $(this).val(current_stock);
+      }
+
+      console.log('val ', val);
+      
+
+      if(val > 0) {
+        console.log('======');
+
+        submitBtn.removeAttr('disabled');
+      } else {
+        console.log('dasndasjkdnsadj');
+        
+        submitBtn.attr('disabled', true);
       }
     });
 

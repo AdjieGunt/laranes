@@ -106,7 +106,7 @@
                         
                   </div>  
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-danger">Submit</button>
+                    <button disabled type="submit" class="btn btn-danger" id="submit-sell-out">Submit</button>
                    </div>
                  
   

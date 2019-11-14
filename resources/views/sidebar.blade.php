@@ -32,8 +32,8 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Main Menu</li>
         <!-- Optionally, you can add icons to the links -->
-        <li ><a href="/customers"><i class="fa fa-link"></i> <span>Customer</span></a></li>
-        <li ><a href="/products"><i class="fa fa-link"></i> <span>Product Master</span></a></li>
+        <li ><a href="/customers"><i class="fa fa-user"></i> <span>Customer</span></a></li>
+        <li ><a href="/products"><i class="fa fa-bars"></i> <span>Product Master</span></a></li>
         
         
         
@@ -64,7 +64,7 @@
         </li>
 
         <li {{{ Request::is('stock') ? 'class=active' : '' }}}><a href="{{ url("/stock") }}"><i class="fa fa-database"></i> <span>Info Stock</span></a></li>
-        <li ><a href="/logout"><i class="fa fa-link"></i> <span>Logout</span></a></li>
+        <li ><a href="/logout"><i class="fa fa-sign-out"></i> <span>Logout</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

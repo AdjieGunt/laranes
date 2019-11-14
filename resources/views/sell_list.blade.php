@@ -82,7 +82,7 @@
                         @endif                              
                         <!-- <td>{{ $data['total_product'] }}</td> -->
                         <td>{{ $data['total_qty'] }}</td>
-                        <td>{{ $data['username'] }}</td>
+                        <td>{{ $data['name'] }}</td>
                         <td>
                         @if (\Request::is('sell_in_list'))
                         <a class="btn btn-primary btn-sm"  
